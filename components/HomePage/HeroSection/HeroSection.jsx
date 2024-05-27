@@ -1,10 +1,13 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import axios from "axios";
 
 const HeroSection = () => {
   const parallaxRef1 = useRef(null);
+  const [imageUrl, setImageUrl] = useState("");
+  const accessKey = process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY;
 
   const handleScroll = () => {
     const offset = window.pageYOffset;
@@ -18,6 +21,27 @@ const HeroSection = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const fetchImage = async () => {
+      try {
+        const response = await axios.get(
+          `https://api.unsplash.com/photos/random`,
+          {
+            params: { query: "travel", orientation: "landscape" },
+            headers: {
+              Authorization: `Client-ID ${accessKey}`,
+            },
+          }
+        );
+        setImageUrl(response.data.urls.full);
+      } catch (error) {
+        console.error("Error fetching image from Unsplash", error);
+      }
+    };
+
+    fetchImage();
+  }, [accessKey]);
+
   return (
     <div id="home">
       <section className="no-top no-bottom" aria-label="section-slider">
@@ -25,8 +49,7 @@ const HeroSection = () => {
           <div
             className="h-screen bg-cover bg-center"
             style={{
-              backgroundImage:
-                "url('https://source.unsplash.com/random/1600x900/?travel')",
+              backgroundImage: `url(${imageUrl})`,
             }}
             ref={parallaxRef1}
           >
@@ -37,7 +60,7 @@ const HeroSection = () => {
                 </h1>
                 <p className="text-xl md:text-2xl mb-6">For your vacations</p>
                 <a
-                  href="#"
+                  href="/destination"
                   className="px-8 py-3 bg-[#ff9219] text-white rounded hover:bg-white transition"
                 >
                   More Detail
