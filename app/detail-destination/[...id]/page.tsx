@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // app/detail-destination/[...id]/page.tsx
 "use client";
 import DetailDestination from "@/components/Detail Destination/DetailDestination";

@@ -44,36 +44,46 @@ const PopularDestinations: React.FC<PopularDestinationsProps> = ({
               <span className="devider-left" />
             </div>
 
-            {categories.slice(0, 4).map((category) => (
-              <div
-                className="col-lg-3 col-md-3 col-sm-6 col-xs-12"
-                key={category.id}
-              >
-                <div className="feature-1">
-                  <div className="cont-img">
-                    <img
-                      alt={category.name}
-                      className="img-responsive"
-                      src={thumbnails[category.id]}
-                      style={{
-                        width: "100%",
-                        height: "400px",
-                        objectFit: "cover",
-                      }}
-                    />
-                  </div>
-                  <div className="cont-detail">
-                    <h3 className="big-heading pb-5">
-                      <span className="color">{category.name}</span>{" "}
-                      <sup className="subtour">{category.tour_count} Tours</sup>
-                    </h3>
-                    <Link href={`/categories/${category.slug}`}>
-                      <span className="btn-content">View More</span>
-                    </Link>
+            {categories.length === 0 ? (
+              <div className="col-12 text-center">
+                <p className="text-center text-lg">
+                  No popular destinations available at the moment.
+                </p>
+              </div>
+            ) : (
+              categories.slice(0, 4).map((category) => (
+                <div
+                  className="col-lg-3 col-md-3 col-sm-6 col-xs-12"
+                  key={category.id}
+                >
+                  <div className="feature-1">
+                    <div className="cont-img">
+                      <img
+                        alt={category.name}
+                        className="img-responsive"
+                        src={thumbnails[category.id]}
+                        style={{
+                          width: "100%",
+                          height: "400px",
+                          objectFit: "cover",
+                        }}
+                      />
+                    </div>
+                    <div className="cont-detail">
+                      <h3 className="big-heading pb-5">
+                        <span className="color">{category.name}</span>{" "}
+                        <sup className="subtour">
+                          {category.tour_count} Tours
+                        </sup>
+                      </h3>
+                      <Link href={`/categories/${category.slug}`}>
+                        <span className="btn-content">View More</span>
+                      </Link>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </div>
       </section>

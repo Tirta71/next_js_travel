@@ -1,9 +1,52 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const Login: React.FC = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(`${apiUrl}/login`, {
+        email,
+        password,
+      });
+
+      const token = response.data.token;
+      const username = response.data.user.name;
+
+      localStorage.setItem("username", username);
+      localStorage.setItem("token", token);
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "success",
+        title: "Login successful. You are now logged in.",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      }).then(() => {
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      });
+    } catch (err) {
+      console.error("Login failed:", err);
+      setError("Login failed. Please check your credentials.");
+    }
+  };
+
   return (
     <>
-      {/* modal login */}
       <div id="fLogin" className="modal fade">
         <div className="modal-dialog modal-login">
           <div className="modal-content">
@@ -19,13 +62,16 @@ const Login: React.FC = () => {
               </button>
             </div>
             <div className="modal-body">
-              <form action="#" method="post">
+              {error && <div className="alert alert-danger">{error}</div>}
+              <form onSubmit={handleLogin}>
                 <div className="form-group">
-                  <label htmlFor="username">User Name</label>
+                  <label htmlFor="email">Email</label>
                   <input
-                    type="text"
+                    type="email"
                     className="form-control"
-                    id="username"
+                    id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     required
                   />
                 </div>
@@ -35,6 +81,8 @@ const Login: React.FC = () => {
                     type="password"
                     className="form-control"
                     id="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     required
                   />
                 </div>
@@ -46,9 +94,6 @@ const Login: React.FC = () => {
                   />
                 </div>
               </form>
-            </div>
-            <div className="modal-footer">
-              <a href="#">or Sign Up</a>
             </div>
           </div>
         </div>

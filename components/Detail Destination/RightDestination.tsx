@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import formatRupiah from "@/utils/formatRupiah";
 import Link from "next/link";
+import ModalBook from "./ModalBook";
 
 interface Category {
   id: number;
@@ -32,6 +33,12 @@ interface RightDestinationProps {
 }
 
 const RightDestination: React.FC<RightDestinationProps> = ({ tour }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleModalToggle = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
   return (
     <>
       <div className="col-md-4">
@@ -47,7 +54,6 @@ const RightDestination: React.FC<RightDestinationProps> = ({ tour }) => {
                 <sub>/ Per Person</sub>
               </div>
 
-              {/* spacer */}
               <div className="space-half" />
               <h3 className="big-heading">Tours Details</h3>
               <div className="devider-rooms-detail" />
@@ -57,14 +63,13 @@ const RightDestination: React.FC<RightDestinationProps> = ({ tour }) => {
               <span>
                 <i className="ti-check-box" /> Location {tour.location}
               </span>
-
               <span>
                 <i className="ti-check-box" /> {tour.days} Days
               </span>
             </div>
-            <a className="btn-book" href="ecommerce-form.html">
+            <button className="btn-book" onClick={handleModalToggle}>
               BOOK NOW
-            </a>
+            </button>
           </div>
 
           <div className="widget">
@@ -80,6 +85,9 @@ const RightDestination: React.FC<RightDestinationProps> = ({ tour }) => {
           </div>
         </aside>
       </div>
+
+      {/* Modal */}
+      <ModalBook isOpen={isModalOpen} onClose={handleModalToggle} />
     </>
   );
 };

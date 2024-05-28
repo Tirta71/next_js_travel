@@ -80,9 +80,6 @@ const Register: React.FC = () => {
                 <div className="clearfix" />
               </form>
             </div>
-            <div className="modal-footer">
-              <a href="#">or Log In</a>
-            </div>
           </div>
         </div>
       </div>
