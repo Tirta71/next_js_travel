@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Categories from "@/components/Child Categories/Categories";
 import Loaders from "@/components/utils/Loaders";
+import { apiUrl } from "@/utils/formatRupiah";
 
 const Page = () => {
   const params = useParams();
@@ -11,7 +12,6 @@ const Page = () => {
   const [tours, setTours] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {
     const fetchTours = async () => {

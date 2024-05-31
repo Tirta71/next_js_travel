@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+// components/RightDestination.tsx
+import React, { useEffect, useState } from "react";
 import formatRupiah from "@/utils/formatRupiah";
 import Link from "next/link";
-import ModalBook from "./ModalBook";
+import Swal from "sweetalert2";
 
 interface Category {
   id: number;
@@ -33,62 +34,74 @@ interface RightDestinationProps {
 }
 
 const RightDestination: React.FC<RightDestinationProps> = ({ tour }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const handleModalToggle = () => {
-    setIsModalOpen(!isModalOpen);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token);
+  }, []);
+
+  const handleBookNow = (e: React.MouseEvent) => {
+    if (!isLoggedIn) {
+      e.preventDefault();
+      Swal.fire({
+        title: "Anda belum login",
+        text: "Silahkan login untuk melanjutkan booking",
+        icon: "warning",
+        confirmButtonText: "OK",
+      });
+    } else {
+      localStorage.setItem("selectedTour", JSON.stringify(tour));
+    }
   };
 
   return (
-    <>
-      <div className="col-md-4">
-        <aside>
-          <div className="widget">
-            <div
-              className="service-hotel onStep animated fadeInUp"
-              data-animation="fadeInUp"
-              data-time={1200}
-            >
-              <div className="price">
-                {formatRupiah(tour.price)}
-                <sub>/ Per Person</sub>
-              </div>
-
-              <div className="space-half" />
-              <h3 className="big-heading">Tours Details</h3>
-              <div className="devider-rooms-detail" />
-              <span>
-                <i className="ti-check-box" /> {tour.slug}
-              </span>
-              <span>
-                <i className="ti-check-box" /> Location {tour.location}
-              </span>
-              <span>
-                <i className="ti-check-box" /> {tour.days} Days
-              </span>
+    <div className="col-md-4">
+      <aside>
+        <div className="widget">
+          <div
+            className="service-hotel onStep animated fadeInUp"
+            data-animation="fadeInUp"
+            data-time={1200}
+          >
+            <div className="price">
+              {formatRupiah(tour.price)}
+              <sub>/ Per Person</sub>
             </div>
-            <button className="btn-book" onClick={handleModalToggle}>
+
+            <div className="space-half" />
+            <h3 className="big-heading">Tours Details</h3>
+            <div className="devider-rooms-detail" />
+            <span>
+              <i className="ti-check-box" /> {tour.slug}
+            </span>
+            <span>
+              <i className="ti-check-box" /> Location {tour.location}
+            </span>
+            <span>
+              <i className="ti-check-box" /> {tour.days} Days
+            </span>
+          </div>
+          <Link href="/booking">
+            <button className="btn-book" onClick={handleBookNow}>
               BOOK NOW
             </button>
-          </div>
+          </Link>
+        </div>
 
-          <div className="widget">
-            <h4 className="big-heading">Tags</h4>
-            <div className="devider-widget"></div>
-            <div className="tags">
-              <div>
-                <Link href={`/categories/${tour.category.slug}`}>
-                  <span>{tour.category.name}</span>
-                </Link>
-              </div>
+        <div className="widget">
+          <h4 className="big-heading">Tags</h4>
+          <div className="devider-widget"></div>
+          <div className="tags">
+            <div>
+              <Link href={`/categories/${tour.category.slug}`}>
+                <span>{tour.category.name}</span>
+              </Link>
             </div>
           </div>
-        </aside>
-      </div>
-
-      {/* Modal */}
-      <ModalBook isOpen={isModalOpen} onClose={handleModalToggle} />
-    </>
+        </div>
+      </aside>
+    </div>
   );
 };
 

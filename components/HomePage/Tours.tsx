@@ -90,6 +90,46 @@ const Tours: React.FC = () => {
           <p className="text-center text-lg">
             No tours available at the moment.
           </p>
+        ) : cards.length < 4 ? (
+          <div className="flex flex-wrap justify-center">
+            {cards.map((card) => (
+              <div
+                key={card.id}
+                className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-4"
+              >
+                <div className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:scale-105 hover:shadow-2xl">
+                  <img
+                    className="w-full h-48 sm:h-64 md:h-80 lg:h-96 object-cover transition-transform duration-300 hover:scale-110"
+                    src={`${baseUrl}/storage/${card.thumbnail}`}
+                    alt={card.name}
+                  />
+                  <div className="p-6">
+                    <Link href={`/detail-destination/${card.id}`}>
+                      <div className="font-bold text-xl mb-2">{card.name}</div>
+                    </Link>
+                    <p className="text-red-500 text-lg">
+                      {formatRupiah(card.price)}{" "}
+                      <span className="text-gray-500"> / Per Person</span>
+                    </p>
+                    <p className="bg-blue-100 text-blue-800 px-3 py-1 inline-block rounded-full text-sm font-semibold">
+                      {card.category.name}
+                    </p>
+                  </div>
+                  <div className="px-6 pt-4 pb-2">
+                    <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                      {card.days} DAYS
+                    </span>
+                    <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                      12+
+                    </span>
+                    <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                      {card.location}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         ) : (
           <Slider {...settings}>
             {cards.map((card) => (

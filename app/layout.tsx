@@ -23,6 +23,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <Script
+          type="text/javascript"
+          src="https://app.sandbox.midtrans.com/snap/snap.js"
+          data-client-key="SB-Mid-client-vpgcK72WK1ew9YTZ"
+        />
         <meta charSet="utf-8" />
         <title>Traveloki</title>
         <meta name="description" content="" />

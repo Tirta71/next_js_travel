@@ -32,6 +32,7 @@ const HeaderNav = () => {
     }).then(() => {
       setTimeout(() => {
         window.location.reload();
+        window.location.href = "/";
       }, 1000);
     });
   };
@@ -49,7 +50,7 @@ const HeaderNav = () => {
                   {isLoggedIn ? (
                     <>
                       <div className="social-icons-subnav hidden-sm hidden-xs">
-                        <Link href="">
+                        <Link href="/detail-profile">
                           <span className="ti-user" /> {userName}
                         </Link>
                       </div>

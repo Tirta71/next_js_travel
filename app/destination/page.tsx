@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Loaders from "@/components/utils/Loaders";
 import Destination from "@/components/Child Destination/Content Destination";
+import { apiUrl } from "@/utils/formatRupiah";
 
 interface Category {
   id: number;
@@ -27,7 +28,6 @@ const Page = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {
     const fetchData = async () => {

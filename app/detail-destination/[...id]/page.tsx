@@ -6,6 +6,7 @@ import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Loaders from "@/components/utils/Loaders";
+import { apiUrl } from "@/utils/formatRupiah";
 
 interface Category {
   id: number;
@@ -37,7 +38,6 @@ const Page = () => {
   const id = Array.isArray(params.id) ? params.id[0] : params.id;
   const [tour, setTour] = useState<Tour | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {
     const fetchTourData = async () => {
