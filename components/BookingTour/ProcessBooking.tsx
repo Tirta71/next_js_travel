@@ -24,6 +24,14 @@ const ProcessBooking: React.FC<ProcessBookingProps> = ({ tour }) => {
 
   const router = useRouter();
 
+  const getCurrentDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
   useEffect(() => {
     if (tour) {
       const newSubTotal = tour.price * personCount;
@@ -114,7 +122,10 @@ const ProcessBooking: React.FC<ProcessBookingProps> = ({ tour }) => {
                             setPersonCount(Number(e.target.value))
                           }
                         >
+                          <option value="1">1 person</option>
+                          <option value="2">2 person</option>
                           <option value="3">3 person</option>
+                          <option value="4">4 person</option>
                           <option value="5">5 person</option>
                           <option value="6">6 person</option>
                           <option value="7">7 person</option>
@@ -148,6 +159,7 @@ const ProcessBooking: React.FC<ProcessBookingProps> = ({ tour }) => {
                       className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-lg"
                       value={startDate}
                       onChange={(e) => setStartDate(e.target.value)}
+                      min={getCurrentDate()}
                     />
                   </div>
                   <div>

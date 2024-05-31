@@ -7,6 +7,7 @@ import Script from "next/script";
 import Footer from "@/components/HomePage/Footer/Footer";
 import Login from "@/components/Login Register/Login";
 import Register from "@/components/Login Register/Register";
+import { midtransKey } from "@/utils/formatRupiah";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,7 +27,7 @@ export default function RootLayout({
         <Script
           type="text/javascript"
           src="https://app.sandbox.midtrans.com/snap/snap.js"
-          data-client-key="SB-Mid-client-vpgcK72WK1ew9YTZ"
+          data-client-key={midtransKey}
         />
         <meta charSet="utf-8" />
         <title>Traveloki</title>

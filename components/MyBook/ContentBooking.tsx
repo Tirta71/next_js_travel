@@ -24,7 +24,7 @@ const BookingCard: React.FC = () => {
         setBookings(response.data);
       } catch (err) {
         console.error("Error fetching bookings:", err);
-        setError("Failed to fetch bookings. Please try again later.");
+        setError("No booking data found for this user.");
       } finally {
         setLoading(false);
       }
@@ -38,12 +38,18 @@ const BookingCard: React.FC = () => {
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return (
+      <div className="h-screen flex mt-20 justify-center">
+        <div className="text-center">
+          <p className="text-4xl font-semibold">{error}</p>
+        </div>
+      </div>
+    );
   }
 
   return (
     <div className="container mx-auto p-6">
-      <h4 className="text-2xl font-bold mb-6">This is Your Booking History</h4>
+      <h4 className="text-2xl font-bold mb-6">Your Booking History</h4>
       <div className="flex flex-wrap -mx-4 my-12">
         {bookings.map((booking) => (
           <div

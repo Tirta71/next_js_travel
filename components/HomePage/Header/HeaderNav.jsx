@@ -21,6 +21,7 @@ const HeaderNav = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
+    localStorage.clear();
     setIsLoggedIn(false);
 
     Swal.fire({

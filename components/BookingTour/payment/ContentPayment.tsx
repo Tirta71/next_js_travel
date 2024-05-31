@@ -128,14 +128,14 @@ const ContentPayment: React.FC<ContentPaymentProps> = ({
                 console.error("Error handling payment callback:", error);
               }
             },
-            onPending: function (result: any) {
+            onPending: function () {
               Swal.fire({
                 icon: "warning",
                 title: "Payment Pending",
                 text: "Your payment is pending. Please complete the payment.",
               });
             },
-            onError: function (result: any) {
+            onError: function () {
               Swal.fire({
                 icon: "error",
                 title: "Payment Error",
