@@ -1,7 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 interface Category {
   id: number;
@@ -16,19 +18,23 @@ interface TopRatedProps {
 }
 
 const TopRated: React.FC<TopRatedProps> = ({ categories }) => {
+  useEffect(() => {
+    AOS.init({ duration: 1000 });
+  }, []);
+
   return (
     <>
-      <section aria-label="top-rated">
+      <section aria-label="top-rated" data-aos="fade-up">
         <div className="container-fluid m-5-hor">
           <div className="row">
-            <div className="col-md-6 sp-padding">
+            <div className="col-md-6 sp-padding" data-aos="fade-right">
               <img
                 alt="top-rated"
                 className="img-responsive"
                 src="img/img-top-rated.jpg"
               />
             </div>
-            <div className="col-md-6 p-30">
+            <div className="col-md-6 p-30" data-aos="fade-left">
               <h3 className="big-heading">Top Rated Our Tours</h3>
               <span className="sub-heading-content">
                 Discover the best tours

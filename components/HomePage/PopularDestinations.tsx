@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import axios from "axios";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 interface Category {
   id: number;
@@ -23,6 +25,8 @@ const PopularDestinations: React.FC<PopularDestinationsProps> = ({
   const unsplashAccessKey = process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY;
 
   useEffect(() => {
+    AOS.init({ duration: 1000 });
+
     const fetchImages = async () => {
       const thumbnailsMap: { [key: number]: string } = {};
 
@@ -62,10 +66,11 @@ const PopularDestinations: React.FC<PopularDestinationsProps> = ({
                 </p>
               </div>
             ) : (
-              categories.slice(0, 4).map((category) => (
+              categories.slice(0, 4).map((category, index) => (
                 <div
                   className="col-lg-3 col-md-3 col-sm-6 col-xs-12"
                   key={category.id}
+                  data-aos={index % 2 === 0 ? "fade-up" : "fade-down"}
                 >
                   <div className="feature-1">
                     <div className="cont-img">

@@ -1,8 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
-import React from "react";
+import React, { useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 interface PackagePhoto {
   id: number;
@@ -21,6 +23,11 @@ const LeftDestination: React.FC<LeftDestinationProps> = ({
   package_photos,
 }) => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
+  useEffect(() => {
+    AOS.init({ duration: 1000 });
+  }, []);
+
   const settings = {
     dots: true,
     infinite: true,
@@ -31,7 +38,7 @@ const LeftDestination: React.FC<LeftDestinationProps> = ({
   };
 
   return (
-    <div className="col-md-8">
+    <div className="col-md-8" data-aos="fade-up">
       <div className="grid-item">
         <h3 className="big-heading text-4xl font-bold mb-6 text-gray-900">
           {name}
@@ -42,6 +49,7 @@ const LeftDestination: React.FC<LeftDestinationProps> = ({
             <div
               key={photo.id}
               className="relative overflow-hidden rounded-lg shadow-lg group"
+              data-aos="fade-up"
             >
               <img
                 src={`${baseUrl}/storage/${photo.photo}`}

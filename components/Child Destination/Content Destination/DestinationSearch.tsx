@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 interface Category {
   id: number;
@@ -20,6 +22,10 @@ const DestinationSearch: React.FC<DestinationSearchProps> = ({
   const [keyword, setKeyword] = useState("");
   const [category, setCategory] = useState("");
 
+  useEffect(() => {
+    AOS.init({ duration: 1000 });
+  }, []);
+
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     onSearch(keyword, category);
@@ -27,7 +33,7 @@ const DestinationSearch: React.FC<DestinationSearchProps> = ({
 
   return (
     <>
-      <div className="col-md-3">
+      <div className="col-md-3" data-aos="fade-right">
         <div
           className="frm-search"
           style={{ background: "url(img/bg-search-ver.jpg)" }}

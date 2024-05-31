@@ -1,5 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-import React from "react";
+import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 interface Category {
   id: number;
@@ -26,8 +28,12 @@ interface DestinationCardProps {
 const DestinationCard: React.FC<DestinationCardProps> = ({ tour }) => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
+  useEffect(() => {
+    AOS.init({ duration: 1000 });
+  }, []);
+
   return (
-    <div className="col-md-6 col-lg-4 p-4">
+    <div className="col-md-6 col-lg-4 p-4" data-aos="fade-up">
       <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-2xl transform transition duration-300 hover:scale-105">
         <a href={`/detail-destination/${tour.id}`}>
           <div className="relative overflow-hidden">

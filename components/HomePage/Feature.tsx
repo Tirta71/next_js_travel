@@ -1,5 +1,7 @@
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 interface Category {
   id: number;
@@ -14,6 +16,10 @@ interface FeatureProps {
 }
 
 const Feature: React.FC<FeatureProps> = ({ categories }) => {
+  useEffect(() => {
+    AOS.init({ duration: 1000 });
+  }, []);
+
   return (
     <>
       <section className="whitepage no-bottom no-top no-padding">
@@ -21,7 +27,11 @@ const Feature: React.FC<FeatureProps> = ({ categories }) => {
           <div className="row">
             <div className="no-gutter">
               {categories.slice(0, 3).map((category, index) => (
-                <div className="col-md-4" key={category.id}>
+                <div
+                  className="col-md-4"
+                  key={category.id}
+                  data-aos={index % 2 === 0 ? "fade-up" : "fade-down"}
+                >
                   <div className="features no-margin">
                     <div className="bg-img">
                       <h3 className="big-heading">

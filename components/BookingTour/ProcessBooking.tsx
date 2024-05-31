@@ -8,6 +8,8 @@ import formatRupiah from "@/utils/formatRupiah";
 import { baseUrl } from "@/utils/formatRupiah";
 import { useRouter } from "next/navigation";
 import { Tour } from "@/utils/types";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 interface ProcessBookingProps {
   tour: Tour;
@@ -33,6 +35,8 @@ const ProcessBooking: React.FC<ProcessBookingProps> = ({ tour }) => {
   };
 
   useEffect(() => {
+    AOS.init({ duration: 1000 });
+
     if (tour) {
       const newSubTotal = tour.price * personCount;
       const newTax = newSubTotal * 0.1;
@@ -156,7 +160,7 @@ const ProcessBooking: React.FC<ProcessBookingProps> = ({ tour }) => {
                     <input
                       type="date"
                       id="start-date"
-                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-lg"
+                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-lg p-2"
                       value={startDate}
                       onChange={(e) => setStartDate(e.target.value)}
                       min={getCurrentDate()}
@@ -172,7 +176,7 @@ const ProcessBooking: React.FC<ProcessBookingProps> = ({ tour }) => {
                     <input
                       type="date"
                       id="end-date"
-                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-lg"
+                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-lg p-2"
                       value={endDate}
                       readOnly
                     />
